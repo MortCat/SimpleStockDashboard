@@ -6,7 +6,6 @@ import os
 import sys
 
 def resource_path(relative_path):
-    """兼容 PyInstaller 打包後的資源檔路徑"""
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.abspath("."), relative_path)
@@ -25,7 +24,7 @@ def save_stock_list(stock_list, filename=STOCK_FILE):
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(stock_list, f, ensure_ascii=False, indent=2)
     except Exception as e:
-        print("無法寫入 stocks.json:", e)
+        print("Failed to write stocks.json:", e)
 
 def fetch_stock_data(stock_list):
     result = []
@@ -50,7 +49,7 @@ def fetch_stock_data(stock_list):
                 f"{open_price:.2f}"
             ])
         except Exception as e:
-            print(f"抓取 {stock_id} 資料失敗:", e)
+            print(f"Failed to fetch data for {stock_id}", e)
             continue
     return result
 
